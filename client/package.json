@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/bungee-inline": "^0.2.2",
+    "axios": "^0.27.2",
     "babel-plugin-styled-components": "^2.0.7",
     "next": "12.2.3",
     "react": "18.2.0",
