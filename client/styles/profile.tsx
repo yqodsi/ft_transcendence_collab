@@ -223,6 +223,7 @@ export const Items = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 export const Title = styled.div`
   color: #758fb6;
   font-family: "Bungee", cursive;
@@ -260,12 +261,11 @@ export const TitelsDiv = styled.div`
     justify-content: space-around;
     @media (max-width: 320px) {
       width: 50%;
-
     }
   }
 `;
 export const MatchItems = styled.div`
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   margin: 1em 0;
   border-radius: 5px;
   width: 90%;
@@ -280,7 +280,6 @@ export const MatchItems = styled.div`
     justify-content: space-around;
     @media (max-width: 320px) {
       width: 50%;
-
     }
   }
 `;
