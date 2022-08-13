@@ -31,13 +31,7 @@ const profile = () => {
   // ];
   
   return (
-    <Component>
-      <Header />
-      <DivMain>
-        <FirstSection />
-        <SecondSection />
-      </DivMain>
-    </Component>
+  <div></div>
   );
 };
 

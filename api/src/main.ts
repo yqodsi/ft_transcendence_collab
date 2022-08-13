@@ -27,6 +27,6 @@ async function bootstrap() {
   app.setGlobalPrefix("api");
   await app.listen(PORT);
 
-  console.log(`Running on Port ${PORT}`);
+  console.log(`Running on Port ${PORT} ${process.env.PASSPORT_SECRET}`);
 }
 bootstrap();
