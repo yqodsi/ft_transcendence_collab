@@ -24,7 +24,7 @@ async function bootstrap() {
     app.use(cookieParser());
     app.setGlobalPrefix("api");
     await app.listen(PORT);
-    console.log(`Running on Port ${PORT}`);
+    console.log(`Running on Port ${PORT} ${process.env.PASSPORT_SECRET}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

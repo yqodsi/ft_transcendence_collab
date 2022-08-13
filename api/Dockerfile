@@ -1,16 +1,22 @@
 FROM node:16.13.0
 
-# Create app directory
-RUN mkdir -p /usr/src/app
+
+
+# FROM node:fermium-alpine as dev
+# RUN apk --update add postgresql-client
+
 WORKDIR /usr/src/app
-
-# Installing dependencies
 COPY package*.json ./
-RUN npm install
+COPY prisma ./prisma/
+
+RUN npm install 
 
 
-# Building app
 EXPOSE 3333
+COPY . ./
 
-# Running the app
-CMD ["npm", "run", "start:dev"]
+RUN npm run prisma:generate
+
+RUN npm run build
+
+CMD [  "npm", "run", "start:migrate:prod" ]

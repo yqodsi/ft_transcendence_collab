@@ -1,15 +1,18 @@
-FROM node:16.16.0
+FROM node:16-alpine
 
 # Create app directory
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Installing dependencies
-COPY package*.json ./
-RUN npm install
+COPY package.json ./
+RUN npm install -g npm@8.17.0
+RUN  npm install 
+
 
 
 # Building app
+
+COPY . .
 EXPOSE 3000
 
 # Running the app
