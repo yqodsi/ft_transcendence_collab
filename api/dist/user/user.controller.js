@@ -19,6 +19,7 @@ const user_service_1 = require("./user.service");
 const uuid_1 = require("uuid");
 const path = require("path");
 const multer_1 = require("multer");
+const decorators_1 = require("../auth/common/decorators");
 exports.storage = {
     storage: (0, multer_1.diskStorage)({
         destination: "./uploads/",
@@ -36,6 +37,10 @@ let UserController = class UserController {
     async getUsers() {
         return this.userservice.getUsers();
     }
+    signup(file, body) {
+        console.log(file);
+        console.log(body);
+    }
     async getUser(id) {
         return this.userservice.getUser(id);
     }
@@ -50,6 +55,16 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Post)('formdata'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('<name of file here - asdasd in your screenshot>')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "signup", null);
 __decorate([
     (0, common_1.Get)(":id"),
     __param(0, (0, common_1.Param)("id")),
