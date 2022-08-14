@@ -1,8 +1,10 @@
 # ft_transcendence_collab
 
-for run the project first need to open the docker with the commend line 
-` docker ps `
+Delete images and containes 
 
-in the root file run the commend
-` docker-compose up `
+` docker-compose down --rmi all `
+
+Build and run app
+
+` docker-compose up --build  `
 
