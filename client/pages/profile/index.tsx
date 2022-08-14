@@ -1,11 +1,10 @@
-import React from "react";
-import { Component } from "../../styles/profile";
-import { Header } from "../../components/header";
-import { FirstSection } from "./firstSection";
-import { SecondSection } from "./SecondSection";
+import React from 'react';
+import { Component } from '../../styles/profile';
+import { Header } from '../../components/header';
+import { FirstSection } from './firstSection';
+import { SecondSection } from './SecondSection';
 
-import { DivMain } from "../../styles/profile";
-
+import { DivMain } from '../../styles/profile';
 
 const profile = () => {
   // const data = {
@@ -29,9 +28,15 @@ const profile = () => {
   //     score: "3 vs 0"
   //   }
   // ];
-  
+
   return (
-  <div></div>
+    <Component>
+      <Header />
+      <DivMain>
+        <FirstSection />
+        <SecondSection />
+      </DivMain>
+    </Component>
   );
 };
 
