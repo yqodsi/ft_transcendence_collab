@@ -11,16 +11,99 @@ datasource db {
 }
 
 model User {
-  id          Int @id @default(autoincrement()) @unique
+  id              BigInt  @id @default(autoincrement())
+  twentyFourId    String  @unique
+  username        String? @unique
+  customName      String?
+  email           String?
+  avatarUrl       String?
+  firstTime       Boolean @default(true)
+  isTwoFactorAuthenticationEnabled Boolean @default(false)
+  twoFactorAuthenticationCode String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  twentyFourId    String @unique
-  username String?
-  customName        String?
-  email       String?
-  avatarUrl   String?
-  firstTime Boolean?
-  isTwoFactorAuthenticationEnabled Boolean?
-  twoFactorAuthenticationCode String?
+
+  FriendTo Friend[] @relation("fk_user1")
+  FriendWith Friend[] @relation("fk_user2")
+  Blocked BlockedUser[] @relation("fk_blocker")
+  BlockedBy BlockedUser[] @relation("fk_blocked")
+  UserRooms RoomUser[] @relation()
   @@map("users")
+}
+
+model Friend {
+  user1Id BigInt
+  user1 User @relation(name:"fk_user1", fields: [user1Id], references: [id])
+  user2Id BigInt
+  user2 User @relation(name:"fk_user2", fields: [user2Id], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@id([user1Id, user2Id])
+  @@map("friendships")
+}
+
+model BlockedUser {
+  blockerId BigInt
+  blocker User @relation(name:"fk_blocker", fields: [blockerId], references: [id])
+  blockedId BigInt
+  blocked User @relation(name:"fk_blocked", fields: [blockedId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@id([blockerId, blockedId])
+  @@map("blocked_users")
+}
+
+model ChatRooms {
+	id BigInt @id @default(autoincrement())
+	name String
+	status RoomStatus @default(Opened)
+	access RoomAccess  @default(Public)
+	password String?
+	createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  RoomUsers RoomUser[] @relation()
+  @@map("chat_rooms")
+}
+
+model RoomUser {
+	roomId BigInt
+	userId BigInt
+	role RoomUserRole @default(User)
+	ban Int @default(0)
+	mute Int @default(0)
+	room ChatRooms @relation(fields: [roomId], references: [id])
+	user User @relation(fields: [userId], references: [id])
+	@@id([roomId, userId])
+	createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  msgs RoomUserMsg[] @relation()
+  @@map("rooms_users")
+}
+
+model RoomUserMsg {
+	id BigInt @id @default(autoincrement())
+	roomId BigInt
+	userId BigInt
+  roomUser RoomUser @relation(fields: [roomId, userId], references: [roomId, userId])
+	msg String
+	createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum RoomAccess {
+  Private
+  Protected
+  Public
+}
+
+enum RoomStatus {
+  Opened
+  Closed
+  Deleted
+}
+
+enum RoomUserRole {
+  Owner
+  Admin
+  User
 }
