@@ -19,8 +19,6 @@ COPY . ./
 RUN npx prisma generate
 RUN npm run build
 
-# ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
-# RUN chmod +x /wait
-CMD  npx prisma migrate deploy &&  npm run start:dev
+CMD  npx prisma migrate deploy && npx prisma db push --accept-data-loss && npx prisma studio &&  npm run start:dev
 # CMD [  "./init.sh" ]
 
