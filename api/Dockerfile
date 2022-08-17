@@ -16,11 +16,11 @@ EXPOSE 3333
 COPY . ./
 
 # RUN npm run prisma:generate
-
+RUN npx prisma generate
 RUN npm run build
 
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
-RUN chmod +x /wait
-CMD  npx prisma migrate dev &&  npm run start:dev
+# ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
+# RUN chmod +x /wait
+CMD  npx prisma migrate deploy &&  npm run start:dev
 # CMD [  "./init.sh" ]
 
