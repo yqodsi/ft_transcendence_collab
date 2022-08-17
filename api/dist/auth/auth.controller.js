@@ -36,7 +36,7 @@ let AuthController = class AuthController {
         res.cookie("access_token", tokens.accessToken, {
             httpOnly: true,
         });
-        res.send(user);
+        res.redirect("http://localhost:3000/registeration");
     }
     status(req, res) {
         res.send(req.user);
