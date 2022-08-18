@@ -75,6 +75,7 @@ export class AuthController {
     //   `access_token=${tokens.accessToken}; SameSite=Strict; Secure; Path=/; Max-Age=${process.env.JWT_EXPIRATION_TIME}`
     // );
     res.redirect("http://localhost:3000/registeration");
+    
     // res.send(user);
   }
 
