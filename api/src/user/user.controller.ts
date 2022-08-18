@@ -37,8 +37,8 @@ export class UserController {
   }
   @Public()
   @Post('formdata')
-@UseInterceptors(FileInterceptor('<name of file here - asdasd in your screenshot>'))
-signup(@UploadedFile() file, @Body() body) {
+  @UseInterceptors(FileInterceptor('<name of file here - asdasd in your screenshot>'))
+  signup(@UploadedFile() file, @Body() body) {
   console.log(file);
   console.log(body);
 }
