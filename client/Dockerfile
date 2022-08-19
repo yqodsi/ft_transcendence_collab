@@ -2,7 +2,7 @@ FROM node:16-alpine
 
 # Create app directory
 
-RUN addgroup app && adduser --system --group app                
+RUN addgroup app && adduser -S -G app  app              
 RUN mkdir /app && chown -R app:app /app
 USER app
 
