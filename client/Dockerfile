@@ -1,10 +1,15 @@
 FROM node:16-alpine
 
 # Create app directory
-WORKDIR /usr/src/app
+
+RUN addgroup app && adduser --system --group app                
+RUN mkdir /app && chown -R app:app /app
+USER app
+
+WORKDIR /app
 
 # Installing dependencies
-COPY package.json ./
+COPY --chown=app:app package*.json ./
 RUN npm install -g npm@8.17.0
 RUN  npm install 
 
@@ -12,7 +17,7 @@ RUN  npm install
 
 # Building app
 
-COPY . .
+COPY --chown=app:app . .
 EXPOSE 3000
 
 # Running the app
