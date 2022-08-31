@@ -43,7 +43,7 @@
     "@types/express-session": "^1.17.4",
     "@types/passport-jwt": "^3.0.6",
     "@types/qrcode": "^1.4.2",
-    "argon2": "^0.28.5",
+    "argon2": "^0.28.7",
     "bcrypt": "^5.0.1",
     "cache-manager": "^4.0.1",
     "class-transformer": "^0.5.1",

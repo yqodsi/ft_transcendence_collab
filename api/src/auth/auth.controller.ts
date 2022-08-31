@@ -87,7 +87,7 @@ export class AuthController {
   @Get("status")
   status(@Req() req: any, @Res() res: any) {
     res.send(req.user);
-    return { msg: "hello" };
+    return { msg: "ahaha" };
   }
 
 

@@ -1,0 +1,22 @@
+FROM node:15.4
+
+# Create app directory, this is in our container/in our image
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# COPY /Nestjs/package*.json ./
+# RUN npm install
+
+# Bundle app source
+COPY /api .
+
+EXPOSE 3333
+EXPOSE 5555
+
+RUN npx prisma generate
+RUN npm run build
+
+
+CMD  npx prisma migrate deploy && npx prisma db push --accept-data-loss &&  npm run start:dev
+
+# CMD npm run start:dev

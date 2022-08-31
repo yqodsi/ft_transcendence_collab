@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>ft_trancencence</h1>
+        <h1>ft_trancendence</h1>
       </main>
     </div>
   );

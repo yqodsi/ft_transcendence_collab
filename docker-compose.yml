@@ -5,49 +5,45 @@ services:
       #----------client---------##
   client:
     container_name: client
-    ports:
-      - 3000:3000
     build:
-      context: ./client
-      dockerfile: Dockerfile
+      dockerfile: client-dockerfile
+      context: .
     depends_on:
       - api
     volumes:
       - ./client:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
+    ports:
+      - "8080:3000"
     networks:
       - nesjs-network
     restart: unless-stopped
-      ##----------api---------##
+
   api:
+    container_name: api
+    build:
+      dockerfile: api-dockerfile
+      context: .
+    depends_on:
+      - dev-db
     environment:
       - DATABASE_URL=postgresql://postgres:123@postgres_db:5432/nest?schema=public
       - PASSPORT_ID=12c636150a0997b590326ef402a48eebb7df63009143d46579589ec5025ac841
-      - PASSPORT_SECRET=0296ce9db1cface9d4825ed3173d391fcba46bf40733231cde4b004e440faaa5
+      - PASSPORT_SECRET=390485ef1b82007be14780fba7a3b0dfe6b86f01d13017796201c351a9eea8a0
       - PASSPORT_REDIRECT_URL=http://localhost:3333/api/auth/redirect
       - PORT=3333
       - JWT_SECRET=secret
       - JWT_EXPIRATION_TIME=120s
       - JWT_RT_SECRET=rt_secret
       - CLIENT_URL=http://localhost:3000
-    container_name: api
-    ports:
-      - 3333:3333
-      - 5555:5555
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    # entrypoint: ["npm", "run", "start:dev"]
-    # entrypoint: ./init.sh
-    depends_on:
-      - dev-db
     volumes:
       - ./api:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: always
+    ports:
+      - "3333:3333"
+      - "5555:5555"
     networks:
       - nesjs-network
+    restart: unless-stopped
+  
 
       ##----------database---------##
 
