@@ -8,4 +8,5 @@ cd ../client
 npm install 
 
 cd ..
-docker-compose up
+docker-compose up --build
+

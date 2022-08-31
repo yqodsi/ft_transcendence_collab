@@ -2,9 +2,9 @@
 
 Delete images and containes 
 
-` docker-compose down --rmi all `
+` ./clean.sh `
 
 Build and run app
 
-` docker-compose up --build  `
+` ./setup.sh  `
 
