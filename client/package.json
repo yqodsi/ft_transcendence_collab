@@ -9,10 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@expo-google-fonts/bungee-inline": "^0.2.2",
+    "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
     "axios": "^0.27.2",
     "babel-plugin-styled-components": "^2.0.7",
-    "next": "12.2.3",
+    "clsx": "^1.2.1",
+    "next": "^12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.5"
