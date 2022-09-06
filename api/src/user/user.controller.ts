@@ -54,4 +54,24 @@ export class UserController {
     const user = req.user;
     return this.userservice.upload(file, user);
   }
+ß
+  @Post("block/:id")
+  async block(@Param('id') id: number,  @Request() req): Promise<any> {
+    // need to get the id of the current user
+    const user = req.user;
+    if (this.userservice.addBlock(id, user))
+      return;
+    return ; // change the return stat with the appropriate status code
+    // if something happned in the data base then write some logs.ß
+  }
+
+  @Post("unblock/:id")
+  async unblock(@Param('id') id: number,  @Request() req): Promise<any> {
+    // need to get the id of the current user
+    const user = req.user;
+    if (this.userservice.delBlock(id, user))
+      return;
+    return ; // change the return stat with the appropriate status code
+    // if something happned in the data base then write some logs.ß
+  }
 }
