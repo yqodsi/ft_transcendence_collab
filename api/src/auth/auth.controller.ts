@@ -68,13 +68,15 @@ export class AuthController {
 
     res.cookie("access_token", tokens.accessToken, {
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     // res.setHeader(
     //   "Set-Cookie",
     //   `access_token=${tokens.accessToken}; SameSite=Strict; Secure; Path=/; Max-Age=${process.env.JWT_EXPIRATION_TIME}`
     // );
-    res.redirect("http://localhost:3000/registeration");
+    res.redirect("http://localhost:3000/");
     
     // res.send(user);
   }

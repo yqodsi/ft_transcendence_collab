@@ -8,8 +8,8 @@ async function bootstrap() {
   const PORT = process.env.PORT || 3003;
   app.use(cookieParser());
   app.enableCors({
-    origin: "*",
-    // credentials: true,
+    origin: "http://localhost:3000",
+    credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
   });
