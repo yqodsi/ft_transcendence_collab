@@ -1,34 +1,44 @@
 import { Injectable } from "@nestjs/common";
 import { authenticator } from "otplib";
 import User from "@prisma/client";
-import { UserService } from '../user/user.service';
-import { Profile } from 'passport-42';
+import { UserService } from "../user/user.service";
+import { Profile } from "passport-42";
 import { toFileStream } from "qrcode";
 import { Response } from "express";
-
-
+import { PrismaService } from "src/prisma/prisma.service";
 @Injectable()
 export class TwoFactorAuthenticationService {
-  constructor(private readonly usersService: UserService) {}
+  constructor(private prisma: PrismaService) {}
 
-  async generateTwoFactorAuthenticationSecret(user: Profile) {
-    const secret = authenticator.generateSecret();
+  // async generateTwoFactorAuthenticationSecret(user: Profile) {
+  //   const secret = authenticator.generateSecret();
 
-    const otpauthUrl = authenticator.keyuri(
-      user.email,
-      "TWO_FACTOR_AUTHENTICATION_APP_NAME",
-      secret
-    );
+  //   const otpauthUrl = authenticator.keyuri(
+  //     user.email,
+  //     "TWO_FACTOR_AUTHENTICATION_APP_NAME",
+  //     secret
+  //   );
 
-    await this.usersService.setTwoFactorAuthenticationSecret(secret, user.id);
+  //   await this.usersService.setTwoFactorAuthenticationSecret(secret, user.id);
 
-    return {
-      secret,
-      otpauthUrl,
-    };
-  }
+  //   return {
+  //     secret,
+  //     otpauthUrl,
+  //   };
+  // }
 
-  public async pipeQrCodeStream(stream: Response, otpauthUrl: string) {
-    return toFileStream(stream, otpauthUrl);
+  // public async pipeQrCodeStream(stream: Response, otpauthUrl: string) {
+  //   return toFileStream(stream, otpauthUrl);
+  // }
+
+  async enableTwoFactorAuthentication(userId: number) {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        isTwoFactorAuthenticationEnabled: true,
+      },
+    });
   }
 }

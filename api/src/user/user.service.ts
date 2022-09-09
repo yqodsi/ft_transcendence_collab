@@ -39,14 +39,30 @@ export class UserService {
     return us.avatarUrl;
   }
 
-  async setTwoFactorAuthenticationSecret(secret: string, userId: number) {
-    return this.prisma.user.update({
+  async changeUsername(body, user): Promise<any> {
+    const { id } = user;
+    const { username } = body;
+    console.log(body);
+    const us = await this.prisma.user.update({
       where: {
-        id: userId,
+        id,
       },
       data: {
-        twoFactorAuthenticationCode: secret,
+        username,
       },
     });
+    return us;
   }
+  // enable two factor authentication
+
+  // async setTwoFactorAuthenticationSecret(secret: string, userId: number) {
+  //   return this.prisma.user.update({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     data: {
+  //       twoFactorAuthenticationCode: secret,
+  //     },
+  //   });
+  // }
 }

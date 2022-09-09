@@ -35,13 +35,13 @@ export class UserController {
   async getUsers() {
     return this.userservice.getUsers();
   }
-  @Public()
-  @Post('formdata')
-  @UseInterceptors(FileInterceptor('<name of file here - asdasd in your screenshot>'))
-  signup(@UploadedFile() file, @Body() body) {
-  console.log(file);
-  console.log(body);
-}
+  //   @Public()
+  //   @Post('formdata')
+  //   @UseInterceptors(FileInterceptor('<name of file here - asdasd in your screenshot>'))
+  //   signup(@UploadedFile() file, @Body() body) {
+  //   console.log(file);
+  //   console.log(body);
+  // }
 
   @Get(":id")
   async getUser(@Param("id") id: number) {
@@ -53,5 +53,13 @@ export class UserController {
   async upload(@UploadedFile() file, @Request() req): Promise<any> {
     const user = req.user;
     return this.userservice.upload(file, user);
+  }
+
+  @Post("changeusername")
+
+  // prisma update username
+  async changeUsername(@Body() body, @Request() req): Promise<any> {
+    const user = req.user;
+    return this.userservice.changeUsername(body, user);
   }
 }
