@@ -10,6 +10,7 @@ const RootLayout = ({ children, imgLink }: { children:any, imgLink:any }) => {
         <FlexRowAlign
           sx={{
             height: "100%",
+            background: "#A2E4F8"
           }}
         >
           <Box>
