@@ -9,7 +9,7 @@ const Singin = () => {
     <RootLayout imgLink="/static/images/signin.png">
       <FlexRowAlign height="100%">
         <Box textAlign="center" maxWidth={420} width="100%" padding={4}>
-          <img src="/static/images/logo.png" width={80} alt="Logo" />
+          <img src="/static/images/logo.png" width={150} alt="Logo" style={{ transform: "rotate(25deg)"}} />
           <H1 fontWeight={700} mt={2}>
             Sign in to PingPong</H1>
           <Paragraph color="text.disabled" fontWeight={500}>

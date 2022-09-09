@@ -22,7 +22,7 @@ const TwoStepVerification = () => {
     <RootLayout imgLink="/static/images/2ft.gif">
       <FlexRowAlign height="100%">
         <Box textAlign="center" maxWidth={420} width="100%" padding={4}>
-        <img src="/static/images/logo.png" width={80} alt="Logo" />
+        <img src="/static/images/logo.png" width={150} alt="Logo" style={{ transform: "rotate(25deg)"}} />
           <H1 fontWeight={700} mt={2}>
           Two Step Verification
           </H1>
