@@ -1,3 +1,4 @@
+docker-compose down --rmi all
 docker-compose down --volumes
 
 sleep 5
