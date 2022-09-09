@@ -5,14 +5,14 @@ import { Small, Tiny } from "components/Typography";
 import { SwitchWrapper } from "./styles";
 const VerificationEmailBox = () => {
   return (
-    <Box maxWidth={250} marginTop={5} marginBottom={1}>
+    <Box marginTop={5} marginBottom={1} paddingLeft={1} paddingBottom={5}>
       <SwitchWrapper>
         <Small display="block" fontWeight={600}>
           Email Verified
         </Small>
         <Switch defaultChecked />
       </SwitchWrapper>
-      <Tiny display="block" color="text.secondary" fontWeight={500}>
+      <Tiny  marginTop={1} display="block" color="text.secondary" fontWeight={500}>
         Disabling this will automatically send the user a verification email
       </Tiny>
     </Box>
