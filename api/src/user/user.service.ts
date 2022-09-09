@@ -1,28 +1,134 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
-  users: any = [
-    {
-      id: 1,
-      name: "John",
-      email: "fff",
-    },
-    {
-      id: 2,
-      name: "John",
-      email: "fff",
-    },
-  ];
-  getUsers() {
-    return this.prisma.user.findMany();
+ 
+  async createUser(user: any) {
+    return await this.prisma.user.create({
+      data: user
+    });
   }
-  getUser(id: number) {
-    console.log(this.users.find((user) => user.id == id));
 
-    return this.users.find((user) => user.id == id);
+  async updateUser(id: number, data: any) {
+    const user = await this.prisma.user.update({
+      where: {
+        id
+      },
+      data,
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      }
+    });
+    return user;
+  }
+
+  async getUser(id: number) {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      }
+    });
+    if (user === null)
+      throw new BadRequestException('user not found');
+    return user;
+  }
+
+  async deleteUser(id: number) {
+    const user = await this.prisma.user.delete({
+      where: {
+        id
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      }
+    });
+    return user;
+  }
+
+  async findUser(username: string) {
+    const users = await this.prisma.user.findMany({
+      where: {
+        username
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true
+      }
+    });
+    return users;
+  }
+
+  async blockUser(blockerId: number, blockedId: number) {
+    const user = await this.prisma.blockedUser.create({
+      data: {
+        blockerId,
+        blockedId
+      }
+    });
+    return user;
+  }
+
+  async unblockUser(blockerId: number, blockedId: number) {
+    const user = await this.prisma.blockedUser.delete({
+      where: {
+        blockerId_blockedId: { blockerId, blockedId }
+      }
+    });
+    return user;
+  }
+
+  async getBlockedUsers(blockerId: number) {
+    const users = await this.prisma.blockedUser.findMany({
+      where: {
+        blockerId
+      },
+      select: {
+        blockedId: true
+      }
+    });
+    return users;
+  }
+
+  async addFriend(userId: number, friendId: number) {
+    const user = await this.prisma.friend.create({
+      data: {
+        user1Id: userId,
+        user2Id: friendId
+      }
+    });
+    return user;
+  }
+
+  async removeFriend(user1Id: number, user2Id: number) {
+    const user = await this.prisma.friend.delete({
+      where: {
+        user1Id_user2Id: { user1Id, user2Id }
+      }
+    });
+    return user;
+  }
+
+  async acceptFriend(userId: number, friendId: number) {
+    const user = await this.prisma.friend.update({
+      where: {
+        user1Id_user2Id: { user1Id: friendId, user2Id: userId }
+      },
+      data: {
+        status: true,
+      }
+    });
   }
 
   async upload(file, user): Promise<any> {
@@ -53,16 +159,5 @@ export class UserService {
     });
     return us;
   }
-  // enable two factor authentication
-
-  // async setTwoFactorAuthenticationSecret(secret: string, userId: number) {
-  //   return this.prisma.user.update({
-  //     where: {
-  //       id: userId,
-  //     },
-  //     data: {
-  //       twoFactorAuthenticationCode: secret,
-  //     },
-  //   });
-  // }
+  
 }

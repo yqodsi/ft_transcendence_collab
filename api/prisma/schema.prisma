@@ -36,6 +36,7 @@ model Friend {
   user1 User @relation(name:"fk_user1", fields: [user1Id], references: [id])
   user2Id Int
   user2 User @relation(name:"fk_user2", fields: [user2Id], references: [id])
+  status Boolean @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   @@id([user1Id, user2Id])
